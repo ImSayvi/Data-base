@@ -1,0 +1,10 @@
+/*Tematyka bazy danych: zbiór próbek wilczego pochodzenia, które mają służyć dalszej analizie PCR.
+Baza zawiera informacje: 1. unikalna nazwa próbki nadana przed badaniem PCR 2. typ materiału (odchody, mocz, sierść, tkanka),
+3. data poboru 4.region pochodzenia próbki 5.wataha z któej wywodzi się próbka 6. nadleśnictwo pochodzenia próby
+ 7. dokładne koordynaty próby x, 8. dokładne koordynaty próby y 9. przez kogo została pobrana próba*/
+
+struct probka smartfony[4]=
+ {{"BD234", "tkanka", "2014.02.10", "Bory Dolnoslaskie", "Zagan", 15.2579, 51.5585, "J.Karwanski"},
+ {"LNR028","odchody", "2016.02.18", "Lasy Napiwodzko-Ramuckie", "Nidzica/Jedwabno", 19.82024, 53.74159, "M. Szewczyk"},
+ {"PK008","mocz", "2016.01.10", "Puszcza Kampinoska", "Kampinoska", 20.51367, 52.36366, "M. Szewczyk"},
+ {"WE27","odchody", "2023.01.10", "Wysoczyzna Elbląska", "Kadyny", 20.48580, 54.07302, "J.Sparzak"}};
