@@ -253,6 +253,7 @@ void sortujBaze(void)
     FILE *fp;
     struct probka bufs1, bufs2;
     int n = liczbaStruktur(), zam, i;
+    int wybor;
 
     if (n <= 1)
     {
@@ -267,6 +268,19 @@ void sortujBaze(void)
         exit(1);
     }
 
+    // Pytanie użytkownika, według którego pola chce posortować struktury
+    printf("\n Wybierz pole, wedlug ktorego chcesz posortowac struktury:");
+    printf("\n 1. Nazwa");
+    printf("\n 2. Typ");
+    printf("\n 3. Data poboru");
+    printf("\n 4. Region");
+    printf("\n 5. Wataha");
+    printf("\n 6. Koordynaty x");
+    printf("\n 7. Koordynaty y");
+    printf("\n 8. Kto\n");
+    printf(" Wybierz opcje :");
+    scanf("%d", &wybor);
+
     do
     {
         zam = 0;
@@ -275,12 +289,51 @@ void sortujBaze(void)
             fseek(fp, i * sizeof(struct probka), SEEK_SET);
             fread(&bufs1, sizeof(struct probka), 1, fp);
             fread(&bufs2, sizeof(struct probka), 1, fp);
-            if (strcmp(bufs1.nazwa, bufs2.nazwa) > 0)
-            {
+
+
+            switch(wybor) {
+                case 1:
+                    if (strcmp(bufs1.nazwa, bufs2.nazwa) > 0)
+                        zam = 1;
+                    break;
+                case 2:
+                    if (strcmp(bufs1.typ, bufs2.typ) > 0)
+                        zam = 1;
+                    break;
+                case 3:
+                    if (strcmp(bufs1.dataPoboru, bufs2.dataPoboru) > 0)
+                        zam = 1;
+                    break;
+                case 4:
+                    if (strcmp(bufs1.region, bufs2.region) > 0)
+                        zam = 1;
+                    break;
+                case 5:
+                    if (strcmp(bufs1.wataha, bufs2.wataha) > 0)
+                        zam = 1;
+                    break;
+                case 6:
+                    if (bufs1.x > bufs2.x)
+                        zam = 1;
+                    break;
+                case 7:
+                    if (bufs1.y > bufs2.y)
+                        zam = 1;
+                    break;
+                case 8:
+                    if (strcmp(bufs1.kto, bufs2.kto) > 0)
+                        zam = 1;
+                    break;
+                default:
+                    printf("\n Niepoprawny wybor");
+                    fclose(fp);
+                    return;
+            }
+
+            if (zam) {
                 fseek(fp, i * sizeof(struct probka), SEEK_SET);
                 fwrite(&bufs2, sizeof(struct probka), 1, fp);
                 fwrite(&bufs1, sizeof(struct probka), 1, fp);
-                zam = 1;
             }
         }
         n--;
