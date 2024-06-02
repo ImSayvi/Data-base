@@ -147,7 +147,7 @@ struct probka wczytStruct(void)
     printf("\nTyp:");
     scanf("%9s", st.typ);
     printf("\nData poboru:");
-    scanf("%9s", st.dataPoboru);
+    scanf("%10s", st.dataPoboru);
     printf("\nRegion:");
     scanf("%30s", st.region);
     printf("\nWataha:");
@@ -268,7 +268,7 @@ void sortujBaze(void)
         exit(1);
     }
 
-    // Pytanie użytkownika, według którego pola chce posortować struktury
+
     printf("\n Wybierz pole, wedlug ktorego chcesz posortowac struktury:");
     printf("\n 1. Nazwa");
     printf("\n 2. Typ");
