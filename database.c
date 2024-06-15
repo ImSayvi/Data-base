@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 
 int bazaOtwarta = 0;
 char nazwaOtwartejBazy[12];
@@ -37,6 +38,7 @@ void end(void);
 void next(int *pos);
 void previous(int *pos);
 int liczbaStruktur(void);
+void gotoxy(short x, short y, int columns, int rows);
 void drukujWszystkieStruktury(void);
 
 int main(void)
@@ -53,18 +55,27 @@ void menu(void)
 
     do
     {
+
         system("cls");
-        printf("\n");
-        printf(" ============================\n");
-        printf(" 1. Otworz baze danych\n");
-        printf(" 2. Utworz nowa baze\n");
-        printf(" 3. Przeglad bazy\n");
-        printf(" 4. Sortowanie bazy\n");
-        printf(" 5. Modyfikacja struktury\n");
-        printf(" 6. Usun plik bazy danych\n");
-        printf(" 7. Zakoncz program\n");
-        printf(" ============================\n");
-        printf(" Wybierz opcje :");
+
+
+        CONSOLE_SCREEN_BUFFER_INFO csbi;
+        int columns, rows;
+        GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+        columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+        rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+
+        gotoxy(0, 0, columns, rows); printf(" ============================\n");
+        gotoxy(0, 1, columns, rows); printf(" 1. Otworz baze danych\n");
+        gotoxy(0, 2, columns, rows); printf(" 2. Utworz nowa baze\n");
+        gotoxy(0, 3, columns, rows); printf(" 3. Przeglad bazy\n");
+        gotoxy(0, 4, columns, rows); printf(" 4. Sortowanie bazy\n");
+        gotoxy(0, 5, columns, rows); printf(" 5. Modyfikacja struktury\n");
+        gotoxy(0, 6, columns, rows); printf(" 6. Usun plik bazy danych\n");
+        gotoxy(0, 7, columns, rows); printf(" 7. Zakoncz program\n");
+        gotoxy(0, 8, columns, rows); printf(" ============================\n");
+        gotoxy(0, 9, columns, rows); printf(" Wybierz opcje :");
         ch = getch();
 
         switch(ch)
@@ -115,7 +126,6 @@ void menu(void)
             odpowiedz = getch();
             if (odpowiedz == 'T' || odpowiedz == 't')
             {
-
                 if (bazaOtwarta)
                 {
                     printf("\n Zapisywanie aktualnego stanu bazy danych...");
@@ -137,6 +147,16 @@ void menu(void)
         }
     }
     while (ch != '7');
+}
+
+void gotoxy(short x, short y, int columns, int rows)
+{
+    // Calculate the starting position to center the menu
+    int start_x = (columns - 30) / 2; // Adjust width as necessary
+    int start_y = (rows - 10) / 2 + y; // Adjust height as necessary
+
+    COORD pos = {start_x + x, start_y};
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
 struct probka wczytStruct(void)
@@ -172,6 +192,9 @@ void drukStruct(struct probka st)
     printf("\n Koordynaty y: %lf", st.y);
     printf("\n Osoba, ktora pobrala probke: %s", st.kto);
 }
+
+
+
 
 int sprawdzNazweBazy(char *nazwa)
 {
