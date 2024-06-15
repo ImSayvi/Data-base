@@ -239,6 +239,7 @@ void otworzBaze(void)
         if (odpowiedz == 'T' || odpowiedz == 't')
         {
             bazaOtwarta = 0;
+            fclose(fp);
         }
         else
         {
